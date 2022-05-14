@@ -1,0 +1,61 @@
+.MODEL TINY
+.CODE
+.186
+
+ORG 100H  
+
+MAIN:
+    JMP INIT
+
+    CURRENT DB 0
+    SPEED DB 01FH
+    SAVED_INT DD ?
+
+INT_BEGIN:
+    PUSHA
+    PUSH ES
+    PUSH DS
+
+    MOV AH, 02H
+    INT 1AH
+
+    CMP DH, CURRENT
+    MOV CURRENT, DH
+    JE INT_END
+
+    MOV AL, 0F3H
+    OUT 60H, AL
+    MOV AL, SPEED
+    OUT 60H, AL
+
+    DEC SPEED
+
+    TEST SPEED, 01FH
+    JZ RESET_SPEED
+    JMP INT_END
+
+    RESET_SPEED:
+        MOV SPEED, 01FH
+
+    INT_END:
+        POP DS
+        POP ES
+        POPA
+
+        JMP CS:SAVED_INT
+
+INIT:
+    MOV AX, 3508H
+    INT 21H
+
+    MOV WORD PTR SAVED_INT, BX
+    MOV WORD PTR SAVED_INT + 2, ES
+
+    MOV AX, 2508H
+    MOV DX, OFFSET INT_BEGIN
+    INT 21H
+
+    MOV DX, OFFSET INIT
+    INT 27H
+
+END MAIN
