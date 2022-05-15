@@ -4,3 +4,5 @@
 *.exe
 *.COM
 *.com
+/HOME/asm_lab8/Release
+/HOME/asm_lab8/.vs/asm_lab8
