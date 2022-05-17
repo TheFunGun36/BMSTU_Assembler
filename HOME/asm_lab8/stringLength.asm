@@ -6,16 +6,13 @@ stringLength PROC
 ; Стек:
 ;    адрес возврата (0)
 ;    строка (+4)
-xor eax, eax
-mov ebx, [esp + 4] 
-loop_begin:
-	mov dl, [ebx]
-	test dl, dl
-	jz loop_end
-	inc eax
-	inc ebx
-	jmp loop_begin
-loop_end:
+mov ecx, 07fffffffh
+mov edi, [esp + 4]
+mov eax, 0
+repnz scasb
+mov eax, 07fffffffh
+sub eax, ecx
+dec eax
 ret
 stringLength ENDP
 END

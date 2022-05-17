@@ -6,11 +6,8 @@ extern "C" {
 }
 
 int main() {
-    const char src[] = "1234";
-    size_t len = stringLength(src);
-
-    char result[] = "abcd";
-    stringCopy(result, src, len);
-    std::cout << result;
+    char str[] = "1234ab";
+    stringCopy(str + 2, str, 4);
+    std::cout << stringLength(str) << ": \"" << str << "\"\n";
     return 0;
 }
