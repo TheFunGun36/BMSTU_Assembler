@@ -1,0 +1,97 @@
+Microsoft (R) Macro Assembler Version 14.31.31104.0	    04/26/22 11:01:31
+my_strlen.asm						     Page 1 - 1
+
+
+				.686
+				.MODEL FLAT, C
+				.STACK
+ 00000000			.CODE
+ 00000000			my_strcpy PROC
+ 00000000  53			    push ebx
+ 00000001  57			    push edi
+ 00000002  56			    push esi
+ 00000003  51			    push ecx
+
+ 00000004  8B DC		    mov ebx, esp
+ 00000006  83 C3 14		    add ebx, 20
+ 00000009  8B 3B		    mov edi, [ebx]
+ 0000000B  8B 73 04		    mov esi, [ebx + 4]
+ 0000000E  8B 4B 08		    mov ecx, [ebx + 8]
+ 00000011  3B F7		    cmp esi, edi
+ 00000013  77 05		    ja not_set_std
+ 00000015  FD			    std
+ 00000016  03 F1		    add esi, ecx
+ 00000018  03 F9		    add edi, ecx
+ 0000001A			not_set_std:
+ 0000001A  41			    inc ecx
+ 0000001B  F3/ A4		    rep movsb
+ 0000001D  FC			    cld
+
+ 0000001E  59			    pop ecx
+ 0000001F  5E			    pop esi
+ 00000020  5F			    pop edi
+ 00000021  5B			    pop ebx
+ 00000022  C3			    ret
+ 00000023			my_strcpy ENDP
+				; int my_strlen(char *string)
+				; my_strlen PROC
+				;     push ebx
+				;     push edi
+
+				;     mov ebx, esp
+				;     add ebx, 12
+				;     mov ebx, [ebx]
+				;     xor edi, edi
+				; strlen_while:
+				;     mov al, [ebx + edi]
+				;     cmp al, 0
+				;     jz exit
+				;     inc edi
+				;     jmp strlen_while
+				; exit:
+				;     mov eax, edi
+				;     pop edi
+				;     pop ebx
+				;     ret
+				; my_strlen ENDP
+				END
+Microsoft (R) Macro Assembler Version 14.31.31104.0	    04/26/22 11:01:31
+my_strlen.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00000400 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000023 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+my_strcpy  . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000023 Public C
+  not_set_std  . . . . . . . . .	L Near	 0000001A _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000001h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors
